@@ -1,5 +1,572 @@
-<html>
-  <body>
-    Hello World
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ancil - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #00ff00;
+            --bg-color: #0a0a0a;
+            --text-color: #ffffff;
+            --secondary-color: #1a1a1a;
+            --accent-color: #00ff00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            padding: 100px 0;
+            text-align: center;
+            background: linear-gradient(45deg, rgba(10, 10, 10, 0.5), rgba(26, 26, 26, 0.5));
+            backdrop-filter: blur(3px);
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.5);
+            padding: 20px 0;
+            z-index: 1000;
+            backdrop-filter: blur(3px);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 30px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 0;
+            background: rgba(10, 10, 10, 0.4);
+            backdrop-filter: blur(3px);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+        }
+
+        .about-image {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            border: 2px solid var(--primary-color);
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-card {
+            background: rgba(26, 26, 26, 0.5);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid var(--primary-color);
+            transition: transform 0.3s;
+            backdrop-filter: blur(3px);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-list i {
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: rgba(26, 26, 26, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--primary-color);
+            backdrop-filter: blur(3px);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .project-links {
+            margin-top: 20px;
+        }
+
+        .project-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            color: var(--text-color);
+            font-size: 24px;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .tryhackme-badge {
+            margin-top: 20px;
+            text-align: center;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tryhackme-badge iframe {
+            border: none;
+            width: 400px;
+            height: 200px;
+            margin: 0 auto;
+            display: block;
+            overflow: hidden;
+        }
+
+        /* Certificates Section */
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .certificate-card {
+            background: rgba(26, 26, 26, 0.5);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid var(--primary-color);
+            transition: transform 0.3s;
+            backdrop-filter: blur(3px);
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .certificate-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .certificate-card p {
+            margin-bottom: 10px;
+        }
+
+        .certificate-date {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .certificate-card h4 {
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+
+        .certificate-card h4 a {
+            color: var(--text-color);
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+        }
+
+        .certificate-card h4 a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Typing Effect */
+        .typing-text {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0;
+            vertical-align: middle;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background-color: var(--primary-color);
+            margin-left: 2px;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-links {
+                margin-top: 20px;
+            }
+
+            .nav-links a {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+
+        /* Matrix Background */
+        #matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .project-status {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            margin-top: 15px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-bg"></canvas>
+    <nav>
+        <div class="container nav-content">
+            <h2>Ancil</h2>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#certificates">Certificates</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container header-content">
+            <h1><span class="typing-text">Hello, I'm Ancil</span><span class="cursor"></span></h1>
+            <p class="subtitle">CSE Undergraduate | AI & ML | Cybersecurity</p>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I am a first year undergraduate student at National Institute of Technology, Hamirpur enrolled in Computer Science and Engineering. I am interested in contributing to the Open Source Community. Along with that, I am deeply interested in AI and ML. Currently, I am learning Kernel Development and Machine Learning.</p>
+                </div>
+                <div class="about-image">
+                    <!-- Add your image here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Programming Languages</h3>
+                    <ul class="skill-list">
+                        <li><i class="fas fa-check"></i> C</li>
+                        <li><i class="fas fa-check"></i> Python</li>
+                        <li><i class="fas fa-check"></i> MySQL</li>
+                        <li><i class="fas fa-check"></i> Linux</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Machine Learning</h3>
+                    <ul class="skill-list">
+                        <li><i class="fas fa-check"></i> Linear Regression</li>
+                        <li><i class="fas fa-check"></i> Logistic Regression</li>
+                        <li><i class="fas fa-check"></i> Feature Engineering</li>
+                        <li><i class="fas fa-check"></i> Overfitting & Underfitting</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="project1.jpg" alt="Project 1" class="project-image">
+                    <div class="project-content">
+                        <h3>BOting</h3>
+                        <p>A secure and transparent voting system built on Ethereum blockchain, featuring smart contracts and a React frontend.</p>
+                        <div class="project-links">
+                            <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                        </div>
+                        <p class="project-status">In Progress</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="project2.jpg" alt="Project 2" class="project-image">
+                    <div class="project-content">
+                        <h3>ML-powered Security Analyzer</h3>
+                        <p>An AI-driven tool that analyzes network traffic patterns to detect potential security threats in real-time.</p>
+                        <div class="project-links">
+                            <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                        </div>
+                        <p class="project-status">In Progress</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certificates">
+        <div class="container">
+            <h2 class="section-title">Certificates</h2>
+            <div class="certificates-grid">
+                <div class="certificate-card">
+                    <h3>Certified Ethical Hacker (CEH)</h3>
+                    <p>EC-Council</p>
+                    <p class="certificate-date">In Progress</p>
+                    <p>Advanced certification in ethical hacking and penetration testing methodologies.</p>
+                </div>
+
+                <div class="certificate-card">
+                    <h3>Machine Learning Specialization</h3>
+                    <p>DeepLearningAI</p>
+                    <p class="certificate-date">Issued: March 2025</p>
+                    <p>Comprehensive training in machine learning algorithms and applications.</p>
+                    <h4><a href="https://coursera.org/share/75bd5bc42635963878aa87ad9c37077e">Supervised Machine Learning: Regression and Classification</a></h4>
+                </div>
+                <div class="certificate-card">
+                    <h3>Blockchain Development</h3>
+                    <p>IBM</p>
+                    <p class="certificate-date">In Progress</p>
+                    <p>Professional certification in blockchain technology and smart contract development.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Me</h2>
+            <div class="contact-content">
+                <p>I'm always interested in discussing new projects, opportunities, or just connecting with fellow tech enthusiasts.</p>
+                <div class="social-links">
+                    <a href="https://github.com/iamancil"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/iamancil/"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://x.com/iamancil"><i class="fab fa-twitter"></i></a>
+                </div>
+                <div class="tryhackme-badge">
+                    <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=3506349" style='border:none;'></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Matrix background effect
+        const canvas = document.getElementById('matrix-bg');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Matrix characters
+        const chars = '01';
+        const fontSize = 16;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = new Array(columns).fill(1);
+
+        // Draw function
+        function draw() {
+            // Semi-transparent black background to create fade effect
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Green text
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+
+            // Draw characters
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                // Reset drop to top with random chance
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        // Start the animation
+        setInterval(draw, 50);
+
+        // Existing typing effect code
+        const typingText = document.querySelector('.typing-text');
+        const cursor = document.querySelector('.cursor');
+        const text = "Hello, I'm Ancil";
+        let currentIndex = 0;
+        let isDeleting = false;
+
+        function typeText() {
+            if (isDeleting) {
+                typingText.textContent = text.substring(0, currentIndex);
+                currentIndex--;
+                if (currentIndex === 0) {
+                    isDeleting = false;
+                }
+            } else {
+                typingText.textContent = text.substring(0, currentIndex);
+                currentIndex++;
+                if (currentIndex === text.length) {
+                    setTimeout(() => {
+                        isDeleting = true;
+                    }, 2000);
+                }
+            }
+        }
+
+        setInterval(typeText, 100);
+    </script>
+</body>
 </html>
